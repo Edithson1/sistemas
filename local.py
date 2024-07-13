@@ -17,10 +17,10 @@ def modificar_csv(numero):
         # Convertir la respuesta a un StringIO para que Pandas pueda leerlo
         csv_content = StringIO(response.text)
         df = pd.read_csv(csv_content)
-        df
-        # Modificar el DataFrame
-        nueva_fila = {'Numero': numero}
-        df = df.append(nueva_fila, ignore_index=True)
+        
+        # Añadir una nueva fila al DataFrame
+        nueva_fila = pd.DataFrame({'Numero': [numero]})
+        df = pd.concat([df, nueva_fila], ignore_index=True)
         
         # Guardar el DataFrame modificado en un nuevo archivo CSV localmente
         df.to_csv('datos_modificados.csv', index=False)
