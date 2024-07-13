@@ -41,6 +41,9 @@ if st.button('Guardar datos'):
     st.write("Sumas calculadas por el programa en C:")
     st.text(sums)
 
+    # Configurar la identidad del usuario si no está configurada
+    run_git_command(['git', 'config', '--global', 'user.email', 'akuntsueharu@gmail.com'])
+    run_git_command(['git', 'config', '--global', 'user.name', 'Edithson1'])
     # Agregar los archivos cambiados a git
     run_git_command(['git', 'add', 'generated_data.csv', 'sums.txt'])
     # Hacer commit de los cambios
