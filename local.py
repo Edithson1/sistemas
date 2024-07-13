@@ -10,7 +10,7 @@ numero = st.number_input('Ingrese un número entero', min_value=1, step=1)
 # Botón para modificar el archivo CSV
 if st.button('Modificar Archivo CSV'):
     # Leer el archivo CSV desde GitHub
-    url = 'https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/datos.csv'
+    url = 'https://github.com/Edithson1/sistemas/blob/main/generated_data.csv'
     df = pd.read_csv(url)
     
     # Modificar el DataFrame
