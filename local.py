@@ -7,7 +7,7 @@ from io import StringIO
 st.title('Modificación de Archivo CSV en GitHub')
 
 # URL del archivo CSV en GitHub
-url = 'https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/datos.csv'
+url = 'https://github.com/Edithson1/sistemas/blob/main/generated_data.csv'
 
 # Función para descargar y modificar el archivo CSV
 def modificar_csv(numero):
