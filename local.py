@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
+from io import StringIO
 
 # Definir la interfaz de Streamlit
 st.title('Modificación de Archivo CSV en GitHub')
@@ -10,22 +11,24 @@ url = 'https://github.com/Edithson1/sistemas/blob/main/generated_data.csv'
 
 # Función para descargar y modificar el archivo CSV
 def modificar_csv(numero):
-    # Descargar el archivo CSV
+    # Descargar el archivo CSV y leerlo
     response = requests.get(url)
-    df = pd.read_csv(pd.compat.StringIO(response.text))
-    
-    # Modificar el DataFrame
-    nueva_fila = {'Numero': numero}
-    df = df.append(nueva_fila, ignore_index=True)
-    
-    # Guardar el DataFrame modificado en un nuevo archivo CSV localmente
-    df.to_csv('datos_modificados.csv', index=False)
-
-    # Subir el archivo modificado de vuelta a GitHub (ejemplo ilustrativo)
-    # Aquí debes usar métodos de GitHub API o Git para subir el archivo
-    
-    # Mostrar mensaje de éxito
-    st.success('Archivo CSV modificado y guardado localmente.')
+    if response.status_code == 200:
+        # Convertir la respuesta a un StringIO para que Pandas pueda leerlo
+        csv_content = StringIO(response.text)
+        df = pd.read_csv(csv_content)
+        
+        # Modificar el DataFrame
+        nueva_fila = {'Numero': numero}
+        df = df.append(nueva_fila, ignore_index=True)
+        
+        # Guardar el DataFrame modificado en un nuevo archivo CSV localmente
+        df.to_csv('datos_modificados.csv', index=False)
+        
+        # Mostrar mensaje de éxito
+        st.success('Archivo CSV modificado y guardado localmente.')
+    else:
+        st.error(f'Error al descargar el archivo CSV. Código de estado: {response.status_code}')
 
 # Entrada del usuario en Streamlit
 numero = st.number_input('Ingrese un número entero', min_value=1, step=1)
