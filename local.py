@@ -8,6 +8,7 @@ import subprocess
 def get_executable_path():
     return os.path.dirname(os.path.abspath(__file__))
 
+
 # Función para ejecutar comandos de git
 def run_git_command(command):
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -40,7 +41,10 @@ if st.button('Guardar datos'):
 
     st.write("Sumas calculadas por el programa en C:")
     st.text(sums)
-
+    # Ejemplo de comando git push
+    command = ['git', 'push', 'origin', 'main']
+    output = run_git_command(command)
+    st.write(output)
     # Configurar la identidad del usuario si no está configurada
     run_git_command(['git', 'config', '--global', 'user.email', 'akuntsueharu@gmail.com'])
     run_git_command(['git', 'config', '--global', 'user.name', 'Edithson1'])
