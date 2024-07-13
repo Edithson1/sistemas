@@ -9,7 +9,7 @@ st.title('Modificación de Archivo CSV en GitHub')
 # Función para descargar y modificar el archivo CSV
 def modificar_csv(numero):
     # Descargar el archivo CSV y leerlo
-    response = requests.get(url)
+
     if response.status_code == 200:
         # Convertir la respuesta a un StringIO para que Pandas pueda leerlo
         df = pd.read_csv('https://github.com/Edithson1/sistemas/blob/main/generated_data.csv')
