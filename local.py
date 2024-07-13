@@ -17,7 +17,7 @@ def modificar_csv(numero):
         # Convertir la respuesta a un StringIO para que Pandas pueda leerlo
         csv_content = StringIO(response.text)
         df = pd.read_csv(csv_content)
-        
+        df
         # Modificar el DataFrame
         nueva_fila = {'Numero': numero}
         df = df.append(nueva_fila, ignore_index=True)
