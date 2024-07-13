@@ -15,7 +15,8 @@ def modificar_csv(numero):
     response = requests.get(url)
     if response.status_code == 200:
         # Convertir la respuesta a un StringIO para que Pandas pueda leerlo
-        df = pd.read_csv(url)
+        csv_content = StringIO(response.text)
+        df = pd.read_csv(csv_content)
         
         # Modificar el DataFrame
         nueva_fila = {'Numero': numero}
