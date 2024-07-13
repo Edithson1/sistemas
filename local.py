@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
+import subprocess
+
+# Función para obtener la ruta del ejecutable
+def get_executable_path():
+    return os.path.dirname(os.path.abspath(__file__))
+
+# Función para ejecutar comandos de git
+def run_git_command(command):
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    if result.returncode != 0:
+        st.error(f"Error ejecutando el comando {command}: {result.stderr}")
+    return result.stdout
 
 # Generar datos de ejemplo
 num_samples = st.number_input("Número de muestras:", min_value=1, value=10)
@@ -10,10 +22,6 @@ df = pd.DataFrame(data, columns=['Col1', 'Col2', 'Col3'])
 
 st.write("Datos generados:")
 st.write(df)
-
-# Función para obtener la ruta del ejecutable
-def get_executable_path():
-    return os.path.dirname(os.path.abspath(__file__))
 
 # Guardar datos en la ruta del ejecutable al presionar el botón
 if st.button('Guardar datos'):
@@ -32,4 +40,13 @@ if st.button('Guardar datos'):
 
     st.write("Sumas calculadas por el programa en C:")
     st.text(sums)
+
+    # Agregar los archivos cambiados a git
+    run_git_command(['git', 'add', 'generated_data.csv', 'sums.txt'])
+    # Hacer commit de los cambios
+    commit_message = f"Actualizados los archivos generated_data.csv y sums.txt con {num_samples} muestras"
+    run_git_command(['git', 'commit', '-m', commit_message])
+    # Hacer push de los cambios
+    run_git_command(['git', 'push', 'origin', 'main'])
+    st.success("Cambios subidos a GitHub")
 
