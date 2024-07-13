@@ -1,23 +1,22 @@
 import streamlit as st
-import subprocess
+import pandas as pd
 
 # Definir la interfaz de Streamlit
-st.title('Suma de Números Enteros')
+st.title('Modificación de Archivo CSV en GitHub')
 
 # Entrada del usuario en Streamlit
 numero = st.number_input('Ingrese un número entero', min_value=1, step=1)
 
-# Botón para ejecutar el programa C
-if st.button('Calcular Suma'):
-    # Ejecutar el código C con el número ingresado como argumento
-    result = subprocess.run(['./actividad', str(int(numero))], capture_output=True, text=True, stderr=subprocess.PIPE)
-    print(result.stderr)
-
+# Botón para modificar el archivo CSV
+if st.button('Modificar Archivo CSV'):
+    # Leer el archivo CSV desde GitHub
+    url = 'https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/datos.csv'
+    df = pd.read_csv(url)
     
-    # Mostrar resultados
-    if result.returncode == 0:
-        st.write(f'La suma de los números enteros hasta {numero} es: {result.stdout.strip()}')
-    else:
-        st.write('Error al calcular la suma.')
-
-
+    # Modificar el DataFrame
+    nueva_fila = {'Numero': numero}
+    df = df.append(nueva_fila, ignore_index=True)
+    
+    # Guardar el DataFrame modificado de vuelta al archivo CSV en GitHub
+    df.to_csv('datos.csv', index=False)
+    st.success('Archivo CSV modificado correctamente en el repositorio GitHub.')
