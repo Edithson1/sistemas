@@ -10,7 +10,9 @@ numero = st.number_input('Ingrese un número entero', min_value=1, step=1)
 # Botón para ejecutar el programa C
 if st.button('Calcular Suma'):
     # Ejecutar el código C con el número ingresado como argumento
-    result = subprocess.run(['./actividad', str(int(numero))], capture_output=True, text=True)
+    result = subprocess.run(['./actividad', str(int(numero))], capture_output=True, text=True, stderr=subprocess.PIPE)
+    print(result.stderr)
+
     
     # Mostrar resultados
     if result.returncode == 0:
