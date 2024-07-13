@@ -23,7 +23,7 @@ if st.button('Guardar datos'):
     st.success(f'Datos guardados en {file_path}')
 
     # Ejecutar el programa en C para calcular la suma
-    os.system(f'./sum_program')  # Asegúrate de que el programa en C esté compilado y se llame sum_program
+    os.system('./sum_program')  # Asegúrate de que el programa en C esté compilado y se llame sum_program
 
     # Leer el archivo con las sumas
     sum_file_path = os.path.join(executable_path, 'sums.txt')
@@ -32,3 +32,4 @@ if st.button('Guardar datos'):
 
     st.write("Sumas calculadas por el programa en C:")
     st.text(sums)
+
