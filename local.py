@@ -19,7 +19,7 @@ def modificar_csv(numero):
         df = pd.read_csv(csv_content)
         
         # Modificar el DataFrame
-        nueva_fila = {'Numero': [numero]}
+        nueva_fila = {'Numero': numero}
         df = df.append(nueva_fila, ignore_index=True)
         
         # Guardar el DataFrame modificado en un nuevo archivo CSV localmente
