@@ -13,6 +13,8 @@ int main() {
 
     // Leer los datos del archivo y calcular la suma
     char line[256];
+    // Skip the header line
+    fgets(line, sizeof(line), file);
     while (fgets(line, sizeof(line), file)) {
         float col1, col2, col3;
         sscanf(line, "%f,%f,%f", &col1, &col2, &col3);
